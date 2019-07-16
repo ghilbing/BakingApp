@@ -13,11 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.RecipeStepActivity"
-            android:theme="@style/MyAppTheme">
+            android:screenOrientation="sensor"
+            android:configChanges="orientation|screenSize"/>
 
-        </activity>
-        <activity android:name=".activities.RecipeDetailActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.RecipeDetailActivity"
+            android:screenOrientation="sensor"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="sensor"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

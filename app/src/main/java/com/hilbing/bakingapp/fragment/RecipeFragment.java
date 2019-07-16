@@ -64,14 +64,18 @@ public class RecipeFragment extends Fragment implements RecipeAdapter.RecipeClic
         mContext = getActivity();
 
         initViews();
+
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(RECIPE_KEY)){
+            loadData();
+        }
+
         loadData();
-
-
         return view;
     }
 
     private void initViews(){
-        mAdapter = new RecipeAdapter(mContext, this, recipes);
+        mAdapter = new RecipeAdapter(mContext, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setHasFixedSize(true);
@@ -90,10 +94,11 @@ public class RecipeFragment extends Fragment implements RecipeAdapter.RecipeClic
                             Log.d(TAG, response.body().toString());
                             String data = response.body().toString();
 
+
                             Type type = new TypeToken<List<Recipe>>() {
                             }.getType();
                             recipes = getListRecipesFromJson(data, type);
-                            mAdapter.notifyDataSetChanged();
+                            mAdapter.setData(recipes);
                         }
                     }
                 }

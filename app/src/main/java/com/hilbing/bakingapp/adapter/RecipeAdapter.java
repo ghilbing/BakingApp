@@ -34,10 +34,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         void onRecipeClick(Recipe recipe);
     }
 
-    public RecipeAdapter(Context mContext, RecipeClickListener listener, List<Recipe> recipes) {
+    public RecipeAdapter(Context mContext, RecipeClickListener listener) {
         this.mContext = mContext;
         this.mListener = listener;
-        this.recipes = recipes;
     }
 
     @NonNull
@@ -49,7 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        Recipe recipe = recipes.get(i);
+        final Recipe recipe = recipes.get(i);
         myViewHolder.recipeName.setText(recipe.getName());
         switch (recipe.getId()){
             case 1:
@@ -70,8 +69,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return recipes.size();
+        return recipes == null ? 0 : recipes.size();
     }
+
+    public void setData(List<Recipe> recipeList){
+        recipes = recipeList;
+        notifyDataSetChanged();
+    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
