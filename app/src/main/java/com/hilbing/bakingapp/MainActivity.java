@@ -1,18 +1,19 @@
 package com.hilbing.bakingapp;
-
+import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import com.hilbing.bakingapp.fragment.RecipeFragment;
+import java.util.Objects;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-import com.google.gson.JsonArray;
-import com.hilbing.bakingapp.apiConnection.ApiInterface;
-import com.hilbing.bakingapp.apiConnection.service.ApiServiceGenerator;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -21,27 +22,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadData();
-    }
+        ButterKnife.bind(this);
 
-    private void loadData(){
-        ApiInterface apiInterface = ApiServiceGenerator.createService(ApiInterface.class);
-        Call<JsonArray> call = apiInterface.fetchRecipes();
-        call.enqueue(new Callback<JsonArray>() {
-            @Override
-            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
-                        Log.d(TAG, response.body().toString());
-                    }
-                }
-            }
+        setSupportActionBar(toolbar);
 
-            @Override
-            public void onFailure(Call<JsonArray> call, Throwable t) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        }
 
-            }
-        });
+        RecipeFragment fragment = new RecipeFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.recipe_fragment, fragment);
+        transaction.commit();
+
+
     }
 
 }

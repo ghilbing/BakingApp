@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Baking App</string>
+    <string name="error_fetching_data">Error fetching data from internet</string>
+    <string name="no_video_available">No video available</string>
+    <string name="data_no_available">Data no available</string>
+    <string name="step_description">Description</string>
+    <string name="previous_step">Previous</string>
+    <string name="next">Next</string>
+    <string name="next_step">Next</string>
+    <string name="error_interface">Interface error</string>
 </resources>
