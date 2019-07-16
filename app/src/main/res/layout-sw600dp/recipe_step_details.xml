@@ -55,7 +55,6 @@
             android:padding="24dp"
             android:textAllCaps="false"
             android:textSize="18sp"
-            android:text="@{step.description}"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

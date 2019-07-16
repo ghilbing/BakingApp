@@ -51,7 +51,6 @@
             android:layout_marginTop="32dp"
             android:lineSpacingExtra="3sp"
             android:padding="24dp"
-            android:text="@{steps.description}"
             android:textAllCaps="false"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="18sp"
