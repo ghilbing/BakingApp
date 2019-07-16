@@ -30,19 +30,19 @@ public class ApiServiceGenerator {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(BASE_URL);
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                .readTimeout(90, TimeUnit.SECONDS)
-                .connectTimeout(90, TimeUnit.SECONDS)
-                .writeTimeout(90, TimeUnit.SECONDS)
-                .cache(null);
+//        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+//                .readTimeout(90, TimeUnit.SECONDS)
+//                .connectTimeout(90, TimeUnit.SECONDS)
+//                .writeTimeout(90, TimeUnit.SECONDS)
+//                .cache(null);
+//
+//        if (BuildConfig.DEBUG){
+//            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
+//                    .setLevel(HttpLoggingInterceptor.Level.BODY);
+//            httpClient.addInterceptor(loggingInterceptor);
+//        }
 
-        if (BuildConfig.DEBUG){
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY);
-            httpClient.addInterceptor(loggingInterceptor);
-        }
-
-        builder.client(httpClient.build());
+ //       builder.client(httpClient.build());
         Retrofit retrofit = builder.build();
         return retrofit.create(serviceClass);
     }

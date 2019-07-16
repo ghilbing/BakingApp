@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="col_w">250dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="recipe_name_padding">5dp</dimen>
+    <dimen name="recipe_name">25dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_elevation">3dp</dimen>
+    <dimen name="text_size_title">15sp</dimen>
+    <dimen name="text_size_normal">12sp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_x_small">8sp</dimen>
+    <dimen name="detail_image_height_land">300dp</dimen>
+    <dimen name="button_video_width">35dp</dimen>
+    <dimen name="button_video_height">40dp</dimen>
+
+
+</resources>

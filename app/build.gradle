@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -39,12 +43,14 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.0'
 
-    //Youtube Android Player Api
-    implementation files('libs/YouTubeAndroidPlayerApi.jar')
-
     //Retrofit libraries
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
+
+    //Exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
+
+
 }

@@ -1,0 +1,179 @@
+package com.hilbing.bakingapp.adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.hilbing.bakingapp.R;
+import com.hilbing.bakingapp.activities.RecipeStepActivity;
+import com.hilbing.bakingapp.model.Ingredient;
+import com.hilbing.bakingapp.model.Step;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private List<Object> data;
+    private static final int INGREDIENT = 0;
+    private static final int STEP = 1;
+    public boolean isTwoPane;
+    private Context mContext;
+    private StepClickListener mListener;
+
+    public interface StepClickListener{
+        void onStepClick(Step step);
+    }
+
+    public IngredientsAndStepsAdapter(Context context,  List<Object> data, boolean isTwoPane, StepClickListener listener) {
+        this.isTwoPane = isTwoPane;
+        this.mContext = context;
+        this.mListener = listener;
+        this.data = data;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (data.get(position) instanceof Ingredient) {
+            return INGREDIENT;
+        } else if (data.get(position) instanceof Step) {
+            return STEP;
+        }
+
+        return -1;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        RecyclerView.ViewHolder viewHolder;
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
+
+        switch (viewType) {
+            case INGREDIENT:
+                View ingredientView = layoutInflater.inflate(R.layout.item_ingredient, viewGroup, false);
+                viewHolder = new IngredientViewHolder(ingredientView);
+                break;
+            case STEP:
+                View stepView = layoutInflater.inflate(R.layout.item_step, viewGroup, false);
+                viewHolder = new StepViewHolder(stepView);
+                break;
+            default:
+                View view = layoutInflater.inflate(R.layout.item_step, viewGroup, false);
+                viewHolder = new StepViewHolder(view);
+                break;
+        }
+
+        return viewHolder;
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case INGREDIENT:
+                IngredientViewHolder ingredientViewHolder = (IngredientViewHolder) holder;
+                setIngredientViewHolder(ingredientViewHolder, position);
+                break;
+            case STEP:
+                StepViewHolder stepViewHolder = (StepViewHolder) holder;
+                setStepViewHolder(stepViewHolder, position);
+                break;
+            default:
+                StepViewHolder defaultViewHolder = (StepViewHolder) holder;
+                setStepViewHolder(defaultViewHolder, position);
+                break;
+        }
+
+    }
+
+    private void setIngredientViewHolder(IngredientViewHolder ingredientViewHolder, int position) {
+        Ingredient ingredient = (Ingredient) data.get(position);
+        if (ingredient != null) {
+            ingredientViewHolder.ingredient.setText(ingredient.getIngredient());
+            ingredientViewHolder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+            ingredientViewHolder.measure.setText(ingredient.getMeasure());
+        }
+    }
+
+    private void setStepViewHolder(StepViewHolder stepViewHolder, int position) {
+        Step step = (Step) data.get(position);
+        String url;
+        if (step != null) {
+            stepViewHolder.shortDescription.setText(step.getShortDescription());
+            stepViewHolder.description.setText(step.getDescription());
+            if (step.getVideoURL() != null) {
+                url = step.getVideoURL();
+                stepViewHolder.urlVideo.setText(url);
+            } else {
+                url = step.getThumbnailURL();
+                stepViewHolder.urlVideo.setText(url);
+            }
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.data.size();
+    }
+
+    public class IngredientViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tv_ingredient)
+        TextView ingredient;
+        @BindView(R.id.tv_quantity)
+        TextView quantity;
+        @BindView(R.id.tv_measure)
+        TextView measure;
+
+        public IngredientViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+    }
+
+    public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        @BindView(R.id.tv_shortDescription_step)
+        TextView shortDescription;
+        @BindView(R.id.tv_description_step)
+        TextView description;
+        @BindView(R.id.tv_url_step)
+        TextView urlVideo;
+
+
+        public StepViewHolder(@NonNull final View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int pos = getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION){
+                Step clickedDataItem = (Step) data.get(pos);
+                mListener.onStepClick(clickedDataItem);
+//                Intent intent = new Intent(mContext, RecipeStepActivity.class);
+//                intent.putExtra("Steps", clickedDataItem);
+//                mContext.startActivity(intent);
+                    }
+                }
+
+
+    }
+
+}
