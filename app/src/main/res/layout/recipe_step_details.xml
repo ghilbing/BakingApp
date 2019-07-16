@@ -54,6 +54,7 @@
             android:textAllCaps="false"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="18sp"
+            android:text="@{steps.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
