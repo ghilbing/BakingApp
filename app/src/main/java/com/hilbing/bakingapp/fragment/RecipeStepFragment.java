@@ -65,7 +65,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @BindView(R.id.player_view)
     PlayerView playerView;
 
-    private PlayerView mPlayerView;
+
     private SimpleExoPlayer mSimpleExoPlayer;
     private long playerPosition;
     private boolean playReady;
@@ -105,11 +105,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         if (getArguments() != null){
             step = getArguments().getParcelable(EXTRA);
         }
-        if (step.getVideoURL() != null) {
-            videoUrl = step.getVideoURL();
-        } else {
-            videoUrl = step.getThumbnailURL();
-        }
+        videoUrl = step != null ? step.getVideoURL() : null;
         if (savedInstanceState != null){
             playerPosition = savedInstanceState.getLong(POSITION);
         } else {
@@ -124,6 +120,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
         mContext = getActivity();
         isTablet = getResources().getBoolean(R.bool.mTwoPane);
+        stepDescription.setText(step.getDescription());
         screenOrientation = getResources().getConfiguration().orientation;
 
         //If the position is landscape, show full screen, else show nav buttons
@@ -168,12 +165,12 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         } else {
             //hide video in landscape
             if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE){
-                playerView.setVisibility(View.VISIBLE);
+                playerView.setVisibility(View.GONE);
                 videoImage.setVisibility(View.VISIBLE);
                 stepDescription.setVisibility(View.VISIBLE);
             } else {
                 //portrait
-                playerView.setVisibility(View.VISIBLE);
+                playerView.setVisibility(View.GONE);
                 videoImage.setVisibility(View.VISIBLE);
             }
         }
@@ -185,6 +182,25 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
             mSimpleExoPlayer.release();
             mSimpleExoPlayer = null;
         }
+    }
+
+    //Method to hide the system UI for full screen mode
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void hideSystemUI() {
+        Objects.requireNonNull(((AppCompatActivity)
+                Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        }
+        getActivity().getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     @Override
@@ -210,6 +226,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     private void fullScreenPlayer(){
         if (!videoUrl.isEmpty() && !isTablet){
+            hideSystemUI();
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         }
     }

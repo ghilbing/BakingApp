@@ -10,8 +10,8 @@
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/player_view"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:background="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,27 +53,56 @@
             android:padding="24dp"
             android:textAllCaps="false"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/player_view"
             tools:context="ui.fragments.StepDetailsFragment"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum justo at diam varius, a commodo dolor consequat. Maecenas feugiat at lorem accumsan finibus. In efficitur quam ut sodales pretium." />
+    <Button
+        android:id="@+id/btn_previous_step"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/previous_step"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description_step_detail" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="352dp"
-            android:layout_marginBottom="100dp"
-            android:text="@string/step_description"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_description_step_detail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/player_view"
-            app:layout_constraintVertical_bias="0.0" />
+    <Button
+        android:id="@+id/btn_next_step"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/next"
+        android:text="@string/next_step"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description_step_detail" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="100dp"
+        android:text="@string/step_description"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_description_step_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player_view"
+        app:layout_constraintVertical_bias="0.026" />
 
     </android.support.constraint.ConstraintLayout>
 

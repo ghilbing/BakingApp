@@ -103,7 +103,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
     private void showStep(Step step){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         RecipeStepFragment fragment = RecipeStepFragment.newInstance(step);
-        transaction.replace(R.id.item_detail_container, fragment);
+        transaction.replace(R.id.step_detail_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

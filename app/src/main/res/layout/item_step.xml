@@ -23,9 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold"
             android:layout_alignParentStart="true"
-            android:text="@{step.shortDescription}"
             tools:text="Step description"
             android:textAppearance="?attr/textAppearanceListItem" />
 

@@ -108,7 +108,6 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private void setStepViewHolder(StepViewHolder stepViewHolder, int position) {
         Step step = (Step) data.get(position);
-        String url;
         if (step != null) {
             stepViewHolder.shortDescription.setText(step.getShortDescription());
 

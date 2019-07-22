@@ -27,9 +27,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         setTitle(getResources().getString(R.string.recipes));
-
-        Toast.makeText(this, R.string.recipes, Toast.LENGTH_LONG).show();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
