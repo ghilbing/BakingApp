@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,13 +10,25 @@
     android:layout_marginRight="4dp"
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:showDividers="middle">
 
     <!--
     This layout is a two-pane layout for the Step
     master/detail flow.
     -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,5 +46,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2" />
+    </LinearLayout>
 
 </LinearLayout>

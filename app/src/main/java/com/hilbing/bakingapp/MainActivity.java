@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
+
 import com.hilbing.bakingapp.fragment.RecipeFragment;
 import java.util.Objects;
 import butterknife.BindView;
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        setTitle(getResources().getString(R.string.recipes));
+
+        Toast.makeText(this, R.string.recipes, Toast.LENGTH_LONG).show();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);

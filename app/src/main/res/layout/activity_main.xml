@@ -7,28 +7,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!--<android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_recipes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/cardview_recipe">
-
-    </android.support.v7.widget.RecyclerView>-->
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/text_size_title">
-      >
-
-    </android.support.v7.widget.Toolbar>
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"/>
 
     <FrameLayout
         android:id="@+id/recipe_fragment"

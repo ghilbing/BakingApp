@@ -111,13 +111,15 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
         String url;
         if (step != null) {
             stepViewHolder.shortDescription.setText(step.getShortDescription());
-            stepViewHolder.description.setText(step.getDescription());
-            if (step.getVideoURL() != null) {
-                url = step.getVideoURL();
-                stepViewHolder.urlVideo.setText(url);
-            } else {
-                url = step.getThumbnailURL();
-                stepViewHolder.urlVideo.setText(url);
+
+            if (step.getVideoURL() == null && step.getVideoURL() == null) {
+                stepViewHolder.play.setVisibility(View.GONE);
+            }
+            if (step.getThumbnailURL() != null && step.getVideoURL() == null) {
+                stepViewHolder.play.setVisibility(View.VISIBLE);
+            }
+            if (step.getVideoURL() != null && step.getThumbnailURL() == null){
+                stepViewHolder.play.setVisibility(View.GONE);
             }
         }
 
@@ -146,13 +148,10 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.tv_shortDescription_step)
+        @BindView(R.id.tv_short_description)
         TextView shortDescription;
-        @BindView(R.id.tv_description_step)
-        TextView description;
-        @BindView(R.id.tv_url_step)
-        TextView urlVideo;
-
+        @BindView(R.id.iv_play)
+        ImageView play;
 
         public StepViewHolder(@NonNull final View itemView) {
             super(itemView);

@@ -28,6 +28,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
 
     @BindView(R.id.rv_detail)
     RecyclerView recyclerViewDetail;
+    @BindView(R.id.detail_toolbar)
+    Toolbar toolbar;
     private boolean mTwoPane;
     public Recipe recipe;
     private IngredientsAndStepsAdapter mAdapter;
@@ -40,6 +42,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
     public int recipeId;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +50,14 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
 
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+
+        recipeObjects = new ArrayList<Object>();
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        recipeObjects = new ArrayList<Object>();
 
 
         //get intent extras
