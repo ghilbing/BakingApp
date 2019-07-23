@@ -14,6 +14,13 @@
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:padding="@dimen/recipe_name_padding"
+        android:textSize="@dimen/text_size_title"
+        android:text="@string/ingredients_and_steps"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_detail"
@@ -28,5 +35,15 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
     </android.support.v7.widget.RecyclerView>
+
+    <!--<FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include layout="@layout/ingredients_and_steps_rv"/>
+
+    </FrameLayout>-->
 
 </LinearLayout>

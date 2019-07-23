@@ -9,4 +9,5 @@
     <string name="next_step">Next</string>
     <string name="error_interface">Interface error</string>
     <string name="recipes">Recipes</string>
+    <string name="ingredients_and_steps">Ingredients and Steps</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.hilbing.bakingapp.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import com.hilbing.bakingapp.model.Ingredient;
 import com.hilbing.bakingapp.model.Recipe;
 import com.hilbing.bakingapp.model.Step;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,9 @@ import butterknife.ButterKnife;
 
 public class RecipeDetailActivity extends AppCompatActivity implements IngredientsAndStepsAdapter.StepClickListener, RecipeStepFragment.OnStepClickListener {
 
+    private static String TAG = RecipeDetailActivity.class.getSimpleName();
+
+    @Nullable
     @BindView(R.id.rv_detail)
     RecyclerView recyclerViewDetail;
     @BindView(R.id.detail_toolbar)
@@ -81,7 +88,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
             Toast.makeText(this, R.string.data_no_available, Toast.LENGTH_LONG).show();
         }
 
-        if (findViewById(R.id.item_detail_container) != null){
+        if (findViewById(R.id.step_detail_container) != null){
             //For larger screens
             mTwoPane = true;
         }
@@ -92,9 +99,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
 
     private void setupRecyclerView() {
 
-        recyclerViewDetail.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewDetail.setLayoutManager(layoutManager);
+        recyclerViewDetail.setHasFixedSize(true);
         mAdapter = new IngredientsAndStepsAdapter(getApplicationContext(), recipeObjects, mTwoPane, this);
         recyclerViewDetail.setAdapter(mAdapter);
 
@@ -105,7 +112,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
         if (step != null){
             if (mTwoPane){
                 RecipeStepFragment fragment = new RecipeStepFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.step_detail_container, fragment).commit();
             } else {
                 Intent intent = new Intent(this, RecipeStepActivity.class);
                 intent.putExtra(RecipeStepActivity.EXTRA, step);
@@ -119,12 +126,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
 
     @Override
     public void onPreviousClick(Step step) {
-
     }
 
     @Override
     public void onNextClick(Step step) {
-
     }
 
     @Override
@@ -136,4 +141,5 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

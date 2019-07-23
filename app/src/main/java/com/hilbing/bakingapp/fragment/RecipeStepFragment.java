@@ -184,7 +184,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         }
     }
 
-    //Method to hide the system UI for full screen mode
+/*    //Method to hide the system UI for full screen mode
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void hideSystemUI() {
         Objects.requireNonNull(((AppCompatActivity)
@@ -201,7 +201,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         getActivity().getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
+    }*/
 
     @Override
     public void onResume() {
@@ -226,7 +226,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     private void fullScreenPlayer(){
         if (!videoUrl.isEmpty() && !isTablet){
-            hideSystemUI();
+          //  hideSystemUI();
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         }
     }
