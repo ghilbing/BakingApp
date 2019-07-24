@@ -30,10 +30,8 @@
         android:id="@+id/iv_video_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginEnd="411dp"
         android:scaleType="centerCrop"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,14 +39,12 @@
         android:id="@+id/tv_no_video"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginEnd="411dp"
         android:background="@android:color/black"
         android:gravity="center"
         android:text="@string/no_video_available"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

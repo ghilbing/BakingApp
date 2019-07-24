@@ -68,7 +68,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     private SimpleExoPlayer mSimpleExoPlayer;
     private long playerPosition;
-    private boolean playReady;
+    private Boolean playReady;
     private int screenOrientation;
 
     private Context mContext;
@@ -78,6 +78,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     private static final String EXTRA = "Step";
     private static final String POSITION = "position";
+    private static final String WHEN_READY = "play_when_ready";
 
     private OnStepClickListener mListener;
 
@@ -104,10 +105,26 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
         if (getArguments() != null){
             step = getArguments().getParcelable(EXTRA);
+
         }
-        videoUrl = step != null ? step.getVideoURL() : null;
+
+
+        if (step.getVideoURL() != ""){
+            videoUrl = step.getVideoURL();
+            Log.d(TAG, videoUrl);
+        } else if (step.getVideoURL() == "" && step.getThumbnailURL() != ""){
+            videoUrl = step.getThumbnailURL();
+            Log.d(TAG, videoUrl);
+        } else {
+            videoUrl = "";
+            Log.d(TAG, videoUrl);
+        }
+
+        //videoUrl = step != null ? step.getVideoURL() : null;
         if (savedInstanceState != null){
+            step = savedInstanceState.getParcelable(EXTRA);
             playerPosition = savedInstanceState.getLong(POSITION);
+            playReady = savedInstanceState.getBoolean(WHEN_READY);
         } else {
             playerPosition = 0;
         }
@@ -165,16 +182,16 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         } else {
             //hide video in landscape
             if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE){
-                playerView.setVisibility(View.GONE);
+                playerView.setVisibility(View.VISIBLE);
                 videoImage.setVisibility(View.VISIBLE);
                 stepDescription.setVisibility(View.VISIBLE);
                 noVideo.setVisibility(View.VISIBLE);
             } else {
                 //portrait
-                playerView.setVisibility(View.GONE);
-                videoImage.setVisibility(View.VISIBLE);
-                noVideo.setVisibility(View.VISIBLE);
-            }
+                    playerView.setVisibility(View.VISIBLE);
+                    videoImage.setVisibility(View.GONE);
+                    noVideo.setVisibility(View.GONE);
+                }
         }
     }
 
@@ -186,8 +203,8 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         }
     }
 
-/*    //Method to hide the system UI for full screen mode
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    //Method to hide the system UI for full screen mode
+/*    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void hideSystemUI() {
         Objects.requireNonNull(((AppCompatActivity)
                 Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
@@ -204,6 +221,12 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }*/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initExoPlayer();
+    }
 
     @Override
     public void onResume() {
@@ -228,7 +251,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     private void fullScreenPlayer(){
         if (!videoUrl.isEmpty() && !isTablet){
-          //  hideSystemUI();
+           // hideSystemUI();
             noVideo.setVisibility(View.GONE);
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         } else {
@@ -292,8 +315,10 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putLong("position", playerPosition);
         super.onSaveInstanceState(outState);
+        outState.putLong(POSITION, playerPosition);
+        outState.putParcelable(EXTRA, step);
+        outState.putBoolean(WHEN_READY, playReady);
     }
 
     @Override
