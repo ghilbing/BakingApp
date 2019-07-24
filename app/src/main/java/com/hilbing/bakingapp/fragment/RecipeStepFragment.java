@@ -143,6 +143,8 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         //If the position is landscape, show full screen, else show nav buttons
         if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE){
             fullScreenPlayer();
+            previousBtn.setOnClickListener(this);
+            nextBtn.setOnClickListener(this);
         } else {
             previousBtn.setOnClickListener(this);
             nextBtn.setOnClickListener(this);
@@ -185,7 +187,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                 playerView.setVisibility(View.VISIBLE);
                 videoImage.setVisibility(View.VISIBLE);
                 stepDescription.setVisibility(View.VISIBLE);
-                noVideo.setVisibility(View.VISIBLE);
+                noVideo.setVisibility(View.GONE);
             } else {
                 //portrait
                     playerView.setVisibility(View.VISIBLE);
@@ -252,11 +254,9 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     private void fullScreenPlayer(){
         if (!videoUrl.isEmpty() && !isTablet){
            // hideSystemUI();
-            noVideo.setVisibility(View.GONE);
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-        } else {
-            noVideo.setVisibility(View.VISIBLE);
         }
+
     }
 
     @Override
