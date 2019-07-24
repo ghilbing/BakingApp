@@ -227,7 +227,10 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     private void fullScreenPlayer(){
         if (!videoUrl.isEmpty() && !isTablet){
           //  hideSystemUI();
+            noVideo.setVisibility(View.GONE);
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+        } else {
+            noVideo.setVisibility(View.VISIBLE);
         }
     }
 
