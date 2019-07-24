@@ -61,12 +61,12 @@ public class WidgetService extends RemoteViewsService {
 
        @Override
        public long getItemId(int position) {
-           return 0;
+           return position;
        }
 
        @Override
        public boolean hasStableIds() {
-           return false;
+           return true;
        }
 
        @Override
