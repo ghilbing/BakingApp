@@ -168,10 +168,12 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                 playerView.setVisibility(View.GONE);
                 videoImage.setVisibility(View.VISIBLE);
                 stepDescription.setVisibility(View.VISIBLE);
+                noVideo.setVisibility(View.VISIBLE);
             } else {
                 //portrait
                 playerView.setVisibility(View.GONE);
                 videoImage.setVisibility(View.VISIBLE);
+                noVideo.setVisibility(View.VISIBLE);
             }
         }
     }
