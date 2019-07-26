@@ -111,13 +111,13 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
         if (step != null) {
             stepViewHolder.shortDescription.setText(step.getShortDescription());
 
-            if (step.getVideoURL() == null && step.getVideoURL() == null) {
+            if (step.getVideoURL() == null && step.getThumbnailURL() == null) {
                 stepViewHolder.play.setVisibility(View.GONE);
             }
-            if (step.getThumbnailURL() != null && step.getVideoURL() == null) {
+            if (step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty() && step.getVideoURL() == null) {
                 stepViewHolder.play.setVisibility(View.VISIBLE);
             }
-            if (step.getVideoURL() != null && step.getThumbnailURL() == null){
+            if (step.getVideoURL() != null && !step.getVideoURL().isEmpty() && step.getThumbnailURL() == null){
                 stepViewHolder.play.setVisibility(View.GONE);
             }
         }
@@ -165,9 +165,7 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
             if (pos != RecyclerView.NO_POSITION){
                 Step clickedDataItem = (Step) data.get(pos);
                 mListener.onStepClick(clickedDataItem);
-//                Intent intent = new Intent(mContext, RecipeStepActivity.class);
-//                intent.putExtra("Steps", clickedDataItem);
-//                mContext.startActivity(intent);
+
                     }
                 }
 

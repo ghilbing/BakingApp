@@ -16,7 +16,7 @@
         android:textColor="@color/cardview_dark_background"
         android:textSize="@dimen/text_size_title"
         android:textStyle="bold"
-        android:text="@string/recipes"
+        android:text="@string/ingredients_and_steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

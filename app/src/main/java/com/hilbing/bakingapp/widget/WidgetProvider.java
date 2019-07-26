@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.hilbing.bakingapp.MainActivity;
 import com.hilbing.bakingapp.R;
@@ -27,7 +28,6 @@ public class WidgetProvider extends AppWidgetProvider {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(RecipeDetailActivity.WIDGET_PREF, Context.MODE_PRIVATE);
         int id = sharedPreferences.getInt(RecipeDetailActivity.ID_PREF, 0);
-
         widgetText = sharedPreferences.getString(RecipeDetailActivity.NAME_PREF, "no recipe");
 
         //Remote views
@@ -55,6 +55,7 @@ public class WidgetProvider extends AppWidgetProvider {
         //Update
        for (int appWidgetId : appWidgetIds){
            WidgetProvider.updateAppWidget(context, appWidgetManager, appWidgetId);
+           Toast.makeText(context, "Widget has been updated", Toast.LENGTH_LONG).show();
        }
    }
 

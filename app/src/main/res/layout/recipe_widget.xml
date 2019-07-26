@@ -9,16 +9,16 @@
     <TextView
         android:id="@+id/widget_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_alignParentTop="true"
         android:layout_margin="@dimen/margin"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:padding="@dimen/recipe_name_padding"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_title"
-        android:textStyle="bold|italic"
-     />
+        android:text="@string/recipes"
+        android:textStyle="bold|italic" />
 
     <ListView
         android:id="@+id/widget_list"

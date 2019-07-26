@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.widget.Toast;
 
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.model.Ingredient;
@@ -61,18 +62,19 @@ public class WidgetService extends RemoteViewsService {
 
        @Override
        public long getItemId(int position) {
-           return position;
+           return 0;
        }
 
        @Override
        public boolean hasStableIds() {
-           return true;
+           return false;
        }
 
        @Override
        public RemoteViews getViewAt(int position){
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.recipe_widget);
             Ingredient ingredient = ingredients.get(position);
+            Toast.makeText(context, "Creating remoteviews", Toast.LENGTH_LONG).show();
 
             String measure = String.valueOf(ingredient.getQuantity());
             String widget_ingredient = ingredient.getIngredient();

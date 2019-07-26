@@ -108,19 +108,20 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
         }
 
-
-        if (step.getVideoURL() != ""){
-            videoUrl = step.getVideoURL();
-            Log.d(TAG, videoUrl);
-        } else if (step.getVideoURL() == "" && step.getThumbnailURL() != ""){
-            videoUrl = step.getThumbnailURL();
-            Log.d(TAG, videoUrl);
-        } else {
-            videoUrl = "";
-            Log.d(TAG, videoUrl);
+        if (step != null){
+            if (step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
+                videoUrl = step.getVideoURL();
+                Log.d(TAG, videoUrl);
+            } else if (step.getVideoURL() == null && step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty()){
+                videoUrl = step.getThumbnailURL();
+                Log.d(TAG, videoUrl);
+            } else {
+                videoUrl = "";
+                Log.d(TAG, videoUrl);
+            }
         }
 
-        //videoUrl = step != null ? step.getVideoURL() : null;
+
         if (savedInstanceState != null){
             step = savedInstanceState.getParcelable(EXTRA);
             playerPosition = savedInstanceState.getLong(POSITION);
@@ -137,17 +138,19 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
         mContext = getActivity();
         isTablet = getResources().getBoolean(R.bool.mTwoPane);
-        stepDescription.setText(step.getDescription());
-        screenOrientation = getResources().getConfiguration().orientation;
+        if (step != null) {
+            stepDescription.setText(step.getDescription());
+            screenOrientation = getResources().getConfiguration().orientation;
 
-        //If the position is landscape, show full screen, else show nav buttons
-        if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE){
-            fullScreenPlayer();
-            previousBtn.setOnClickListener(this);
-            nextBtn.setOnClickListener(this);
-        } else {
-            previousBtn.setOnClickListener(this);
-            nextBtn.setOnClickListener(this);
+            //If the position is landscape, show full screen, else show nav buttons
+            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                fullScreenPlayer();
+                previousBtn.setOnClickListener(this);
+                nextBtn.setOnClickListener(this);
+            } else {
+                previousBtn.setOnClickListener(this);
+                nextBtn.setOnClickListener(this);
+            }
         }
 
         return view;
@@ -166,34 +169,38 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     //Exoplayer
     private void initExoPlayer(){
         //check if it is null
-        if (mSimpleExoPlayer == null && !(videoUrl.isEmpty())){
-            //show the player
-            playerView.setVisibility(View.VISIBLE);
-            //Default trackselector
-            TrackSelector trackSelector = new DefaultTrackSelector();
-            mSimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector);
-            playerView.setPlayer(mSimpleExoPlayer);
-            mSimpleExoPlayer.addListener(this);
-            //User agent
-            String userAgent = getResources().getString(R.string.app_name);
-            DataSource.Factory factory = new DefaultDataSourceFactory(mContext, userAgent);
-            MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(Uri.parse(videoUrl));
-            mSimpleExoPlayer.prepare(mediaSource);
-            mSimpleExoPlayer.seekTo(playerPosition);
-            mSimpleExoPlayer.setPlayWhenReady(true);
-        } else {
-            //hide video in landscape
-            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE){
-                playerView.setVisibility(View.VISIBLE);
-                videoImage.setVisibility(View.VISIBLE);
-                stepDescription.setVisibility(View.VISIBLE);
-                noVideo.setVisibility(View.GONE);
+        if (step != null) {
+            if (mSimpleExoPlayer == null && videoUrl != null) {
+                if (!(videoUrl.isEmpty())) {
+                    //show the player
+                    playerView.setVisibility(View.VISIBLE);
+                    //Default trackselector
+                    TrackSelector trackSelector = new DefaultTrackSelector();
+                    mSimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector);
+                    playerView.setPlayer(mSimpleExoPlayer);
+                    mSimpleExoPlayer.addListener(this);
+                    //User agent
+                    String userAgent = getResources().getString(R.string.app_name);
+                    DataSource.Factory factory = new DefaultDataSourceFactory(mContext, userAgent);
+                    MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(Uri.parse(videoUrl));
+                    mSimpleExoPlayer.prepare(mediaSource);
+                    mSimpleExoPlayer.seekTo(playerPosition);
+                    mSimpleExoPlayer.setPlayWhenReady(true);
+                }
             } else {
-                //portrait
+                //hide video in landscape
+                if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    playerView.setVisibility(View.VISIBLE);
+                    videoImage.setVisibility(View.VISIBLE);
+                    stepDescription.setVisibility(View.VISIBLE);
+                    noVideo.setVisibility(View.GONE);
+                } else {
+                    //portrait
                     playerView.setVisibility(View.VISIBLE);
                     videoImage.setVisibility(View.GONE);
                     noVideo.setVisibility(View.GONE);
                 }
+            }
         }
     }
 
