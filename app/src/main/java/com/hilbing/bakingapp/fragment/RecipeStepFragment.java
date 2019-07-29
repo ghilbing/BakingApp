@@ -73,7 +73,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     private Context mContext;
     private Step step;
-    private boolean isTablet;
+    private boolean isTwoPane;
     private String videoUrl;
 
     private static final String EXTRA = "Step";
@@ -135,22 +135,29 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recipe_step_details, container, false);
         ButterKnife.bind(this, view);
+        Log.d(TAG, "creating view");
 
         mContext = getActivity();
-        isTablet = getResources().getBoolean(R.bool.mTwoPane);
+        isTwoPane = getResources().getBoolean(R.bool.mTwoPane);
+
+     //   Log.d(TAG, step.getId().toString());
+
         if (step != null) {
             stepDescription.setText(step.getDescription());
+            Log.d(TAG, step.getDescription());
             screenOrientation = getResources().getConfiguration().orientation;
+            previousBtn.setOnClickListener(this);
+            nextBtn.setOnClickListener(this);
 
             //If the position is landscape, show full screen, else show nav buttons
-            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+           /* if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 fullScreenPlayer();
                 previousBtn.setOnClickListener(this);
                 nextBtn.setOnClickListener(this);
             } else {
                 previousBtn.setOnClickListener(this);
                 nextBtn.setOnClickListener(this);
-            }
+            }*/
         }
 
         return view;
@@ -259,7 +266,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     }
 
     private void fullScreenPlayer(){
-        if (!videoUrl.isEmpty() && !isTablet){
+        if (!videoUrl.isEmpty() && !isTwoPane){
            // hideSystemUI();
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         }
