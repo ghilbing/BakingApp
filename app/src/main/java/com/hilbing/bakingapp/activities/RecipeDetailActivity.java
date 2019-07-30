@@ -130,7 +130,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
     public void onStepClick(Step step) {
         if (step != null){
             if (mTwoPane){
-                RecipeStepFragment fragment = new RecipeStepFragment();
+                RecipeStepFragment fragment = RecipeStepFragment.newInstance(step);
                 getSupportFragmentManager().beginTransaction().replace(R.id.step_detail_container, fragment).commit();
             } else {
                 Intent intent = new Intent(this, RecipeStepActivity.class);

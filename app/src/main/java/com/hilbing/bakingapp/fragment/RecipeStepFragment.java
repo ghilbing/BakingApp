@@ -138,7 +138,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         Log.d(TAG, "creating view");
 
         mContext = getActivity();
-        isTwoPane = getResources().getBoolean(R.bool.mTwoPane);
+        isTwoPane = getResources().getBoolean(R.bool.isTwoPane);
 
      //   Log.d(TAG, step.getId().toString());
 
@@ -330,9 +330,11 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(POSITION, playerPosition);
-        outState.putParcelable(EXTRA, step);
-        outState.putBoolean(WHEN_READY, playReady);
+        Log.d(TAG, "MENSAJE PARA VER.......... " + outState.toString());
+            outState.putLong(POSITION, playerPosition);
+            outState.putParcelable(EXTRA, step);
+       //     outState.putBoolean(WHEN_READY, playReady);
+
     }
 
     @Override
