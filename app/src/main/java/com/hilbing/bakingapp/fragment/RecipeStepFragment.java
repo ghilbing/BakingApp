@@ -2,6 +2,7 @@ package com.hilbing.bakingapp.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
@@ -140,7 +141,6 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         mContext = getActivity();
         isTwoPane = getResources().getBoolean(R.bool.isTwoPane);
 
-     //   Log.d(TAG, step.getId().toString());
 
         if (step != null) {
             stepDescription.setText(step.getDescription());
@@ -330,10 +330,12 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "MENSAJE PARA VER.......... " + outState.toString());
+
             outState.putLong(POSITION, playerPosition);
             outState.putParcelable(EXTRA, step);
-       //     outState.putBoolean(WHEN_READY, playReady);
+            outState.putBoolean(WHEN_READY, playReady);
+
+
 
     }
 
