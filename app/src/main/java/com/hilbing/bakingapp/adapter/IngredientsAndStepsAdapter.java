@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.activities.RecipeStepActivity;
@@ -28,6 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private final static String TAG = "Ingredients and Steps";
 
     private List<Object> data;
     private static final int INGREDIENT = 0;
@@ -115,15 +119,13 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
         if (step != null) {
             stepViewHolder.shortDescription.setText(step.getShortDescription());
 
-            if (step.getVideoURL() == null && step.getThumbnailURL() == null) {
-                stepViewHolder.play.setVisibility(View.GONE);
-            }
-            if (step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty() && step.getVideoURL() == null) {
-                stepViewHolder.play.setVisibility(View.VISIBLE);
-            }
-            if (step.getVideoURL() != null && !step.getVideoURL().isEmpty() && step.getThumbnailURL() == null){
-                stepViewHolder.play.setVisibility(View.GONE);
-            }
+//            if (step.getVideoURL() != null && !step.getVideoURL().isEmpty() && step.getThumbnailURL() == null) {
+//                stepViewHolder.play.setVisibility(View.VISIBLE);
+//            } else if (step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty() && step.getVideoURL() == null) {
+//                stepViewHolder.play.setVisibility(View.VISIBLE);
+//            } else
+//                stepViewHolder.play.setVisibility(View.GONE);
+
         }
 
     }
@@ -166,8 +168,9 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
-            if (pos != RecyclerView.NO_POSITION){
+            if (pos != RecyclerView.NO_POSITION) {
                 Step clickedDataItem = (Step) data.get(pos);
+
                 mListener.onStepClick(clickedDataItem);
 
             }

@@ -150,14 +150,14 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
             nextBtn.setOnClickListener(this);
 
             //If the position is landscape, show full screen, else show nav buttons
-           /* if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 fullScreenPlayer();
-                previousBtn.setOnClickListener(this);
-                nextBtn.setOnClickListener(this);
+                previousBtn.setVisibility(View.GONE);
+                nextBtn.setVisibility(View.GONE);
             } else {
                 previousBtn.setOnClickListener(this);
                 nextBtn.setOnClickListener(this);
-            }*/
+            }
         }
 
         return view;
@@ -213,6 +213,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     void releasePlayer(){
         if (mSimpleExoPlayer != null){
+            playReady = mSimpleExoPlayer.getPlayWhenReady();
             mSimpleExoPlayer.stop();
             mSimpleExoPlayer.release();
             mSimpleExoPlayer = null;
@@ -255,6 +256,8 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         super.onPause();
         if (mSimpleExoPlayer != null){
             playerPosition = mSimpleExoPlayer.getCurrentPosition();
+            playReady = mSimpleExoPlayer.getPlayWhenReady();
+            Log.d(TAG, playReady.toString());
             releasePlayer();
         }
     }
@@ -330,13 +333,9 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
             outState.putLong(POSITION, playerPosition);
             outState.putParcelable(EXTRA, step);
             outState.putBoolean(WHEN_READY, playReady);
-
-
-
     }
 
     @Override

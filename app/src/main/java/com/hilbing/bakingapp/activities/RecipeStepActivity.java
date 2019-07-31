@@ -108,7 +108,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
 
         if (step != null){
             if (isTwoPane){
-                RecipeStepFragment fragment = new RecipeStepFragment();
+                RecipeStepFragment fragment = RecipeStepFragment.newInstance(step);
                 getSupportFragmentManager().beginTransaction().replace(R.id.step_detail_container, fragment).commit();
             } else {
                 Intent intent = new Intent (this, RecipeStepActivity.class);
