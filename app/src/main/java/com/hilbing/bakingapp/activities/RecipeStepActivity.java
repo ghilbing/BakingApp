@@ -87,7 +87,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
     @Override
     public void onPreviousClick(Step step) {
         stepIdx = step.getId();
-        if (stepIdx > 0){
+        if (stepIdx > 0 && stepIdx <= stepList.size()){
             showStep(stepList.get(stepIdx-1));
         } else {
             finish();

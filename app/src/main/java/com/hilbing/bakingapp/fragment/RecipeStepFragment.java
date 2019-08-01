@@ -66,10 +66,11 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @BindView(R.id.player_view)
     PlayerView playerView;
 
+    Recipe recipe;
+
 
     private SimpleExoPlayer mSimpleExoPlayer;
     private long playerPosition;
-    private Boolean playReady;
     private int screenOrientation;
 
     private Context mContext;
@@ -80,6 +81,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     private static final String EXTRA = "Step";
     private static final String POSITION = "position";
     private static final String WHEN_READY = "play_when_ready";
+    private boolean playReady = true;
 
     private OnStepClickListener mListener;
 
@@ -109,6 +111,16 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
         }
 
+        if (savedInstanceState != null){
+            step = savedInstanceState.getParcelable(EXTRA);
+            playerPosition = savedInstanceState.getLong(POSITION);
+            playReady = savedInstanceState.getBoolean(WHEN_READY);
+        } else {
+            playerPosition = 0;
+        }
+
+
+
         if (step != null){
             if (step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
                 videoUrl = step.getVideoURL();
@@ -123,13 +135,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         }
 
 
-        if (savedInstanceState != null){
-            step = savedInstanceState.getParcelable(EXTRA);
-            playerPosition = savedInstanceState.getLong(POSITION);
-            playReady = savedInstanceState.getBoolean(WHEN_READY);
-        } else {
-            playerPosition = 0;
-        }
+
     }
 
     @Override
@@ -155,6 +161,8 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                 previousBtn.setVisibility(View.GONE);
                 nextBtn.setVisibility(View.GONE);
             } else {
+                previousBtn.setVisibility(View.VISIBLE);
+                nextBtn.setVisibility(View.VISIBLE);
                 previousBtn.setOnClickListener(this);
                 nextBtn.setOnClickListener(this);
             }
@@ -196,6 +204,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                 }
             } else {
                 //hide video in landscape
+                mSimpleExoPlayer.setPlayWhenReady(false);
                 if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                     playerView.setVisibility(View.VISIBLE);
                     videoImage.setVisibility(View.VISIBLE);
@@ -258,7 +267,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         if (mSimpleExoPlayer != null){
             playerPosition = mSimpleExoPlayer.getCurrentPosition();
             playReady = mSimpleExoPlayer.getPlayWhenReady();
-            Log.d(TAG, playReady.toString());
+            Log.d(TAG, String.valueOf(playReady));
             releasePlayer();
         }
     }
@@ -334,18 +343,9 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (step != null) {
-            if (!step.getVideoURL().isEmpty()) {
-                Log.d("VIDEO URL", step.getVideoURL());
-                outState.putLong(POSITION, playerPosition);
-                outState.putParcelable(EXTRA, step);
-                outState.putBoolean(WHEN_READY, playReady);
-            } else {
-                outState.putLong(POSITION, playerPosition);
-                outState.putParcelable(EXTRA, step);
-                Log.d("VIDEO URL", step.getVideoURL());
-            }
-        }
+        outState.putLong(POSITION, playerPosition);
+        outState.putParcelable(EXTRA, step);
+        outState.putBoolean(WHEN_READY, playReady);
     }
 
     @Override
