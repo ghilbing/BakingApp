@@ -213,6 +213,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     void releasePlayer(){
         if (mSimpleExoPlayer != null){
+            playerPosition = mSimpleExoPlayer.getCurrentPosition();
             playReady = mSimpleExoPlayer.getPlayWhenReady();
             mSimpleExoPlayer.stop();
             mSimpleExoPlayer.release();
@@ -333,9 +334,18 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-            outState.putLong(POSITION, playerPosition);
-            outState.putParcelable(EXTRA, step);
-            outState.putBoolean(WHEN_READY, playReady);
+        if (step != null) {
+            if (!step.getVideoURL().isEmpty()) {
+                Log.d("VIDEO URL", step.getVideoURL());
+                outState.putLong(POSITION, playerPosition);
+                outState.putParcelable(EXTRA, step);
+                outState.putBoolean(WHEN_READY, playReady);
+            } else {
+                outState.putLong(POSITION, playerPosition);
+                outState.putParcelable(EXTRA, step);
+                Log.d("VIDEO URL", step.getVideoURL());
+            }
+        }
     }
 
     @Override
