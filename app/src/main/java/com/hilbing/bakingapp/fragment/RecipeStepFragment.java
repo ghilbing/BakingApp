@@ -77,6 +77,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     private Step step;
     private boolean isTwoPane;
     private String videoUrl;
+    private String thumbnailUrl;
 
     private static final String EXTRA = "Step";
     private static final String POSITION = "position";
@@ -119,23 +120,6 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
             playerPosition = 0;
         }
 
-
-
-        if (step != null){
-            if (step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
-                videoUrl = step.getVideoURL();
-                Log.d(TAG, videoUrl);
-            } else if (step.getVideoURL() == null && step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty()){
-                videoUrl = step.getThumbnailURL();
-                Log.d(TAG, videoUrl);
-            } else {
-                videoUrl = "";
-                Log.d(TAG, videoUrl);
-            }
-        }
-
-
-
     }
 
     @Override
@@ -148,7 +132,29 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         isTwoPane = getResources().getBoolean(R.bool.isTwoPane);
 
 
+
         if (step != null) {
+
+            videoUrl = step.getVideoURL();
+            thumbnailUrl = step.getThumbnailURL();
+
+            if (null != videoUrl && !videoUrl.isEmpty()){
+                if (null != savedInstanceState && savedInstanceState.containsKey(POSITION) && savedInstanceState.containsKey(WHEN_READY)){
+                    playerPosition = savedInstanceState.getLong(POSITION);
+                    playReady = savedInstanceState.getBoolean(WHEN_READY);
+                }
+
+                showVideoViewOnly();
+                initExoPlayer();
+
+            } else if (null != thumbnailUrl && !thumbnailUrl.isEmpty()){
+                showImageViewOnly();
+
+            } else {
+                hideImageAndVideoViews();
+            }
+
+
             stepDescription.setText(step.getDescription());
             Log.d(TAG, step.getDescription());
             screenOrientation = getResources().getConfiguration().orientation;
@@ -221,7 +227,12 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     }
 
     void releasePlayer(){
+        if (playerView != null) {
+            playerView.setPlayer(null);
+        }
+
         if (mSimpleExoPlayer != null){
+
             playerPosition = mSimpleExoPlayer.getCurrentPosition();
             playReady = mSimpleExoPlayer.getPlayWhenReady();
             mSimpleExoPlayer.stop();
@@ -360,4 +371,29 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                 break;
         }
     }
+
+    private void hideImageAndVideoViews() {
+        if (null != playerView) {
+            playerView.setVisibility(View.INVISIBLE);
+        }
+        if (null != videoImage) {
+            videoImage.setVisibility(View.INVISIBLE);
+            noVideo.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showVideoViewOnly() {
+        hideImageAndVideoViews();
+        if (null != playerView) {
+            playerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showImageViewOnly() {
+        hideImageAndVideoViews();
+        if (null != videoImage) {
+            videoImage.setVisibility(View.VISIBLE);
+        }
+    }
+
 }
