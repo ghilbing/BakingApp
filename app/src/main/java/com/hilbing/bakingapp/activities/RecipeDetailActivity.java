@@ -182,7 +182,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
         editor.apply();
 
         //Add to widget
-        WidgetProvider.updateWidget(this);
+        WidgetProvider.updateAllWidgets(this, recipe);
 
     }
 

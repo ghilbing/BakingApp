@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/widget_text"
+        android:id="@+id/tv_widget_title"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_alignParentTop="true"
@@ -21,11 +21,9 @@
         android:textStyle="bold|italic" />
 
     <ListView
-        android:id="@+id/widget_list"
+        android:padding="@dimen/recipe_name_padding"
+        android:id="@+id/lv_widget_ingredients"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:descendantFocusability="blocksDescendants"
-      />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

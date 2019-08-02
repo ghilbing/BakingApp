@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override

@@ -50,20 +50,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         final Recipe recipe = recipes.get(i);
         myViewHolder.recipeName.setText(recipe.getName());
-        switch (recipe.getId()){
-            case 1:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.nutella_pie));
-                break;
-            case 2:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.brownies));
-                break;
-            case 3:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.yellow_cake));
-                break;
-            case 4:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.cheese_cake));
-                break;
-        }
+//        switch (recipe.getId()){
+//            case 1:
+//                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.nutella_pie));
+//                break;
+//            case 2:
+//                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.brownies));
+//                break;
+//            case 3:
+//                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.yellow_cake));
+//                break;
+//            case 4:
+//                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.cheese_cake));
+//                break;
+//        }
 
     }
 
