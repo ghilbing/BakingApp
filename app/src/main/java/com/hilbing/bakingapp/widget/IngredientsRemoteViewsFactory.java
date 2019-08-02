@@ -30,7 +30,7 @@ public class IngredientsRemoteViewsFactory implements WidgetService.RemoteViewsF
 
     private static String TAG = IngredientsRemoteViewsFactory.class.getSimpleName();
 
-    private Context mContext = null;
+    private Context mContext;
     private List<Ingredient> ingredients = null;
     private List<Recipe> recipes = new ArrayList<>();
 
@@ -102,8 +102,10 @@ public class IngredientsRemoteViewsFactory implements WidgetService.RemoteViewsF
     private void fetchingIngredientsList(final SharedPreferences sharedPreferences) {
         final String recipeJson = sharedPreferences.getString("recipe_on_widget", null);
         final Recipe recipe = (null == recipeJson) ? null : new Gson().fromJson(recipeJson, Recipe.class);
+        Log.d(TAG, recipe.toString());
         if (recipe != null){
             ingredients = recipe.getIngredients();
+            Log.d(TAG, ingredients.toArray().toString());
             onDataSetChanged();
         }
 
