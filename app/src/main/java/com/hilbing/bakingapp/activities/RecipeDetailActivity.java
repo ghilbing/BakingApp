@@ -57,12 +57,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
     public static final String EXTRA_NAME = "Name";
     public int recipeId;
 
-    public static final String WIDGET_PREF = "widget_prefs";
+    public static final String WIDGET_PREF = "recipe_on_widget";
     public static final String ID_PREF = "id";
     public static final String NAME_PREF = "name";
-
-
-
 
 
     @Override
@@ -167,7 +164,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
                 finish();
                 break;
             case R.menu.add_widget:
-                addToPrefsWidget();
+                return false;
+               // addToPrefsWidget();
+               // break;
+            default:
                 break;
 
         }

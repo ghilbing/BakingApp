@@ -101,6 +101,7 @@ public class IngredientsRemoteViewsFactory implements WidgetService.RemoteViewsF
 
     private void fetchingIngredientsList(final SharedPreferences sharedPreferences) {
         final String recipeJson = sharedPreferences.getString("recipe_on_widget", null);
+        Log.d("WIDGET", recipeJson);
         final Recipe recipe = (null == recipeJson) ? null : new Gson().fromJson(recipeJson, Recipe.class);
         Log.d(TAG, recipe.toString());
         if (recipe != null){

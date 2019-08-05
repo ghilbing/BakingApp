@@ -1,8 +1,10 @@
 package com.hilbing.bakingapp.fragment;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +14,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,6 +44,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.model.Recipe;
 import com.hilbing.bakingapp.model.Step;
+import com.hilbing.bakingapp.widget.WidgetProvider;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -46,6 +52,8 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class RecipeStepFragment extends Fragment implements Player.EventListener, View.OnClickListener {
 
@@ -82,6 +90,14 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     private static final String EXTRA = "Step";
     private static final String POSITION = "position";
     private static final String WHEN_READY = "play_when_ready";
+
+    public static final String WIDGET_PREF = "recipe_on_widget";
+    public static final String ID_PREF = "id";
+    public static final String NAME_PREF = "name";
+
+    private int recipeId;
+    private String recipeName;
+
     private boolean playReady = true;
 
     private OnStepClickListener mListener;
@@ -103,9 +119,12 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         return fragment;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         if (getArguments() != null){
             step = getArguments().getParcelable(EXTRA);
@@ -119,8 +138,45 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         } else {
             playerPosition = 0;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.add_widget, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home:
+               // finish();
+                break;
+            case R.menu.add_widget:
+                addToPrefsWidget();
+                break;
+            default:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addToPrefsWidget() {
+        SharedPreferences preferences = mContext.getSharedPreferences(WIDGET_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        recipeId = recipe.getId();
+        recipeName = recipe.getName();
+        editor.putInt(ID_PREF, recipeId);
+        editor.putString(NAME_PREF, recipeName);
+        editor.apply();
+
+        //Add to widget
+        WidgetProvider.updateAllWidgets(mContext, recipe);
 
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
@@ -275,6 +331,17 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onPause() {
         super.onPause();
+        if (mSimpleExoPlayer != null){
+            playerPosition = mSimpleExoPlayer.getCurrentPosition();
+            playReady = mSimpleExoPlayer.getPlayWhenReady();
+            Log.d(TAG, String.valueOf(playReady));
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
         if (mSimpleExoPlayer != null){
             playerPosition = mSimpleExoPlayer.getCurrentPosition();
             playReady = mSimpleExoPlayer.getPlayWhenReady();

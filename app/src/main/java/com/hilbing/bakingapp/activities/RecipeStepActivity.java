@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.fragment.RecipeStepFragment;
@@ -132,6 +133,10 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
         int id = item.getItemId();
         if (id == android.R.id.home){
             finish();
+        }
+
+        if (id == R.menu.add_widget){
+            Toast.makeText(this, "CLICKED", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -18,6 +18,7 @@ import com.hilbing.bakingapp.model.Recipe;
 public class WidgetProvider extends AppWidgetProvider {
 
     public static void updateAllWidgets(final Context context, final Recipe recipe){
+
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         String json = new Gson().toJson(recipe);
