@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
     @Nullable
     @BindView(R.id.step_detail_container)
     FrameLayout detailContainer;
+    @Nullable
 
     private boolean mTwoPane;
     public Recipe recipe;
@@ -163,10 +166,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
             case android.R.id.home:
                 finish();
                 break;
-            case R.menu.add_widget:
-                return false;
-               // addToPrefsWidget();
-               // break;
+            case R.id.menu_add_widget:
+                addToPrefsWidget();
+                break;
             default:
                 break;
 

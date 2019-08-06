@@ -13,6 +13,8 @@
     <string name="ingredients_and_steps">Ingredients and Steps</string>
     <string name="widget_title_no_selection">Ingredients</string>
     <string name="widget_title">Ingredients of <xliff:g id="cake_name" example="Cheesecake">%s</xliff:g></string>
+    <string name="add_widget">Add Widget</string>
+    <string name="widget_empty_text">No recipe selected</string>
 </resources>
 
 

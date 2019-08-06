@@ -32,7 +32,6 @@ public class IngredientsRemoteViewsFactory implements WidgetService.RemoteViewsF
 
     private Context mContext;
     private List<Ingredient> ingredients = null;
-    private List<Recipe> recipes = new ArrayList<>();
 
     public IngredientsRemoteViewsFactory(final Context context){
         mContext = context;

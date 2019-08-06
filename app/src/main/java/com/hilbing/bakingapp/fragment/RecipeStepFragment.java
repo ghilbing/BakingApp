@@ -319,7 +319,6 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onStart() {
         super.onStart();
-        mSimpleExoPlayer.setPlayWhenReady(true);
         initExoPlayer();
     }
 
@@ -334,7 +333,6 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         super.onPause();
         if (mSimpleExoPlayer != null){
             playerPosition = mSimpleExoPlayer.getCurrentPosition();
-            mSimpleExoPlayer.setPlayWhenReady(false);
             playReady = mSimpleExoPlayer.getPlayWhenReady();
             Log.d(TAG, String.valueOf(playReady));
             releasePlayer();

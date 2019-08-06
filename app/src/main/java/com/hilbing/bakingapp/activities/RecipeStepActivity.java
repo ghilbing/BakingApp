@@ -135,7 +135,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
             finish();
         }
 
-        if (id == R.menu.add_widget){
+        if (id == R.id.menu_add_widget){
             Toast.makeText(this, "CLICKED", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
