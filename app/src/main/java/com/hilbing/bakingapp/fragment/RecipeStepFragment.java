@@ -135,6 +135,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
             step = savedInstanceState.getParcelable(EXTRA);
             playerPosition = savedInstanceState.getLong(POSITION);
             playReady = savedInstanceState.getBoolean(WHEN_READY);
+            mSimpleExoPlayer.setPlayWhenReady(playReady);
         } else {
             playerPosition = 0;
         }
@@ -283,15 +284,11 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     }
 
     void releasePlayer(){
-        if (playerView != null) {
-            playerView.setPlayer(null);
-        }
-
-        if (mSimpleExoPlayer != null){
+        if (mSimpleExoPlayer != null) {
 
             playerPosition = mSimpleExoPlayer.getCurrentPosition();
             playReady = mSimpleExoPlayer.getPlayWhenReady();
-            mSimpleExoPlayer.stop();
+           // mSimpleExoPlayer.stop();
             mSimpleExoPlayer.release();
             mSimpleExoPlayer = null;
         }

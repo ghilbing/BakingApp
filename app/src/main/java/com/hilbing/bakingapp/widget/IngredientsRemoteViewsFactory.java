@@ -5,26 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.hilbing.bakingapp.R;
-import com.hilbing.bakingapp.apiConnection.ApiInterface;
-import com.hilbing.bakingapp.apiConnection.service.ApiServiceGenerator;
 import com.hilbing.bakingapp.model.Ingredient;
 import com.hilbing.bakingapp.model.Recipe;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class IngredientsRemoteViewsFactory implements WidgetService.RemoteViewsFactory, SharedPreferences.OnSharedPreferenceChangeListener {
 

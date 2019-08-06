@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ public class WidgetProvider extends AppWidgetProvider {
         final int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, widgetProviderClass));
         updateWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
         context.sendBroadcast(updateWidgetIntent);
+
     }
 
     @Override
@@ -47,7 +49,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for( int appWidgetId : appWidgetIds) {
+        for(int appWidgetId : appWidgetIds) {
             final Recipe recipe = getSelectedRecipe(context);
             final RemoteViews remoteViews = getRemoteViews(context);
             if (null != recipe) {
@@ -78,6 +80,7 @@ public class WidgetProvider extends AppWidgetProvider {
         serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
         remoteViews.setRemoteAdapter(R.id.lv_widget_ingredients, serviceIntent);
+        Log.d("WIDGET", "pasa");
     }
 
     private RemoteViews getRemoteViews(Context context) {

@@ -119,13 +119,6 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
         if (step != null) {
             stepViewHolder.shortDescription.setText(step.getShortDescription());
 
-//            if (step.getVideoURL() != null && !step.getVideoURL().isEmpty() && step.getThumbnailURL() == null) {
-//                stepViewHolder.play.setVisibility(View.VISIBLE);
-//            } else if (step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty() && step.getVideoURL() == null) {
-//                stepViewHolder.play.setVisibility(View.VISIBLE);
-//            } else
-//                stepViewHolder.play.setVisibility(View.GONE);
-
         }
 
     }
