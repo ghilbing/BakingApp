@@ -136,6 +136,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
             playerPosition = savedInstanceState.getLong(POSITION);
             playReady = savedInstanceState.getBoolean(WHEN_READY);
             mSimpleExoPlayer.setPlayWhenReady(playReady);
+            mSimpleExoPlayer.seekTo(playerPosition);
         } else {
             playerPosition = 0;
         }
