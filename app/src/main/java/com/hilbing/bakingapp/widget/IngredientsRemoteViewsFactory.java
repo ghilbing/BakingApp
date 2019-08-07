@@ -10,6 +10,7 @@ import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.model.Ingredient;
 import com.hilbing.bakingapp.model.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,16 +19,16 @@ public class IngredientsRemoteViewsFactory implements WidgetService.RemoteViewsF
     private static String TAG = IngredientsRemoteViewsFactory.class.getSimpleName();
 
     private Context mContext;
-    private List<Ingredient> ingredients = null;
+    private List<Ingredient> ingredients = new ArrayList<>();
 
-    public IngredientsRemoteViewsFactory(final Context context){
+    public IngredientsRemoteViewsFactory(Context context){
         mContext = context;
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         fetchingIngredientsList(sharedPreferences);
     }
 
     @Override
-    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("recipe_on_widget")) {
             fetchingIngredientsList(sharedPreferences);
         }
@@ -85,7 +86,7 @@ public class IngredientsRemoteViewsFactory implements WidgetService.RemoteViewsF
         return false;
     }
 
-    private void fetchingIngredientsList(final SharedPreferences sharedPreferences) {
+    private void fetchingIngredientsList(SharedPreferences sharedPreferences) {
         final String recipeJson = sharedPreferences.getString("recipe_on_widget", null);
         Log.d("WIDGET", recipeJson);
         final Recipe recipe = (null == recipeJson) ? null : new Gson().fromJson(recipeJson, Recipe.class);

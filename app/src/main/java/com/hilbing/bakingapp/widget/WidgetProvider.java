@@ -50,6 +50,7 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for(int appWidgetId : appWidgetIds) {
+
             final Recipe recipe = getSelectedRecipe(context);
             final RemoteViews remoteViews = getRemoteViews(context);
             if (null != recipe) {
@@ -80,6 +81,14 @@ public class WidgetProvider extends AppWidgetProvider {
         serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
         remoteViews.setRemoteAdapter(R.id.lv_widget_ingredients, serviceIntent);
+        remoteViews.setEmptyView(R.id.lv_widget_ingredients, R.id.tv_empty_widget);
+
+        Intent toastIntent = new Intent(context, WidgetProvider.class);
+        toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+        PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        remoteViews.setPendingIntentTemplate(R.id.lv_widget_ingredients, toastPendingIntent);
+
         Log.d("WIDGET", "pasa");
     }
 

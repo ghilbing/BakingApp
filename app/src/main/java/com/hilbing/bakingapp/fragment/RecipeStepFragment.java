@@ -189,6 +189,16 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         mContext = getActivity();
         isTwoPane = getResources().getBoolean(R.bool.isTwoPane);
 
+        if (savedInstanceState != null){
+            step = savedInstanceState.getParcelable(EXTRA);
+            playerPosition = savedInstanceState.getLong(POSITION);
+            playReady = savedInstanceState.getBoolean(WHEN_READY);
+            mSimpleExoPlayer.setPlayWhenReady(playReady);
+            mSimpleExoPlayer.seekTo(playerPosition);
+        } else {
+            playerPosition = 0;
+        }
+
 
 
         if (step != null) {
@@ -264,7 +274,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                     MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(Uri.parse(videoUrl));
                     mSimpleExoPlayer.prepare(mediaSource);
                     mSimpleExoPlayer.seekTo(playerPosition);
-                    mSimpleExoPlayer.setPlayWhenReady(true);
+
                 }
             } else {
                 //hide video in landscape
@@ -323,7 +333,9 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onResume() {
         super.onResume();
-        initExoPlayer();
+        if (!videoUrl.isEmpty()) {
+            mSimpleExoPlayer.setPlayWhenReady(true);
+        }
     }
 
     @Override
