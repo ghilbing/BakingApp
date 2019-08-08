@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/recipes"
+        app:titleTextColor="@color/text_white"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"/>
 

@@ -37,7 +37,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin"
             android:padding="@dimen/recipe_name_padding"
-            android:textColor="@color/primary_text_black"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/recipe_name"
             android:textStyle="bold" />
     </LinearLayout>
