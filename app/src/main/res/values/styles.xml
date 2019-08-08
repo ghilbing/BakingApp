@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionMenuTextColor">@color/text_white</item>
+        <item name="drawerArrowStyle">@style/customHomeButton</item>
     </style>
 
     <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -13,6 +15,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionMenuTextColor">@color/text_white</item>
+        <item name="drawerArrowStyle">@style/customHomeButton</item>
+    </style>
+
+    <style name="customHomeButton" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

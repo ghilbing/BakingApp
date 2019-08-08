@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Baking App</string>
     <string name="error_fetching_data">Error fetching data from internet</string>
     <string name="no_video_available">No video available</string>
@@ -9,5 +9,12 @@
     <string name="next_step">Next</string>
     <string name="error_interface">Interface error</string>
     <string name="recipes">Recipes</string>
+    <string name="ingredient_format"><xliff:g id="amount" example="1.2">%s</xliff:g> <xliff:g id="unit" example="Kg">%s</xliff:g> <xliff:g id="ingredient" example="Salt">%s</xliff:g></string>
     <string name="ingredients_and_steps">Ingredients and Steps</string>
+    <string name="widget_title_no_selection">Ingredients</string>
+    <string name="widget_title">Ingredients of <xliff:g id="cake_name" example="Cheesecake">%s</xliff:g></string>
+    <string name="add_widget">Add Widget</string>
+    <string name="widget_empty_text">No recipe selected</string>
 </resources>
+
+

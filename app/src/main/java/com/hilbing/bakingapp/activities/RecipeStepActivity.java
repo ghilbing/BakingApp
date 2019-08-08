@@ -1,6 +1,8 @@
 package com.hilbing.bakingapp.activities;
 
 import android.content.Intent;
+import android.os.Parcelable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.fragment.RecipeStepFragment;
 import com.hilbing.bakingapp.model.Step;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +34,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
     private List<Step> stepList;
     private int stepIdx;
     private String recipeName;
+    private boolean isTwoPane;
 
     @BindView(R.id.step_toolbar)
     Toolbar stepToolbar;
@@ -83,7 +88,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
     @Override
     public void onPreviousClick(Step step) {
         stepIdx = step.getId();
-        if (stepIdx > 0){
+        if (stepIdx > 0 && stepIdx <= stepList.size()){
             showStep(stepList.get(stepIdx-1));
         } else {
             finish();
@@ -101,6 +106,20 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
     }
 
     private void showStep(Step step){
+
+        if (step != null){
+            if (isTwoPane){
+                RecipeStepFragment fragment = RecipeStepFragment.newInstance(step);
+                getSupportFragmentManager().beginTransaction().replace(R.id.step_detail_container, fragment).commit();
+            } else {
+                Intent intent = new Intent (this, RecipeStepActivity.class);
+                intent.putExtra(RecipeStepActivity.EXTRA, step);
+                intent.putExtra(RecipeStepActivity.EXTRA_NAME, recipeName);
+                intent.putParcelableArrayListExtra(RecipeStepActivity.EXTRA_LIST, (ArrayList<? extends Parcelable>) stepList);
+                startActivity(intent);
+            }
+        }
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         RecipeStepFragment fragment = RecipeStepFragment.newInstance(step);
         transaction.replace(R.id.step_detail_container, fragment);
@@ -114,6 +133,10 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
         int id = item.getItemId();
         if (id == android.R.id.home){
             finish();
+        }
+
+        if (id == R.id.menu_add_widget){
+            Toast.makeText(this, "CLICKED", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

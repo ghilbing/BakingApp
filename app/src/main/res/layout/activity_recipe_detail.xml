@@ -11,6 +11,7 @@
         android:id="@+id/detail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:titleTextColor="@color/text_white"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"/>
 
@@ -19,7 +20,8 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:padding="@dimen/recipe_name_padding"
-        android:textSize="@dimen/text_size_title"
+        android:textSize="25dp"
+        android:textColor="@color/colorPrimaryDark"
         android:text="@string/ingredients_and_steps"/>
 
     <android.support.v7.widget.RecyclerView

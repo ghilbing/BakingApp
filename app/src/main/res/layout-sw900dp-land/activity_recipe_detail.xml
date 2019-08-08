@@ -21,6 +21,7 @@
         android:id="@+id/detail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:titleTextColor="@color/text_white"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"/>
 
@@ -41,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ingredients_and_steps"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/text_size_title"
                 android:textStyle="bold"/>
 

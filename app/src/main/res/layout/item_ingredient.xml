@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="@dimen/margin">
+    android:layout_margin="2dp">
 
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         android:text="Nutella" />
 
     <TextView
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:layout_weight="1"
+        android:textColor="@color/colorPrimaryDark"
         android:text="2" />
 
     <TextView
@@ -29,5 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
+        android:textColor="@color/colorPrimaryDark"
         android:text="TBLS" />
 </LinearLayout>
