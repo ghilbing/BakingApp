@@ -38,14 +38,4 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <!--<FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <include layout="@layout/ingredients_and_steps_rv"/>
-
-    </FrameLayout>-->
-
 </LinearLayout>

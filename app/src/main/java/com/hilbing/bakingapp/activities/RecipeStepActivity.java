@@ -74,8 +74,8 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeStepF
         else {
             stepList = savedInstanceState.getParcelableArrayList(STEP_LIST);
             stepIdx = savedInstanceState.getInt(STEP_INDEX);
-
         }
+
     }
 
     private void addFragment() {
