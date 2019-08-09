@@ -95,10 +95,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
             Toast.makeText(this, R.string.data_no_available, Toast.LENGTH_LONG).show();
         }
 
-        if (findViewById(R.id.step_detail_container) != null){
+        /*if (findViewById(R.id.step_detail_container) != null){
             //For larger screens
             mTwoPane = true;
-        }
+        }*/
 
         if (detailContainer != null){
             mTwoPane = true;
