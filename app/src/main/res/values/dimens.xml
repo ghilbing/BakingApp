@@ -14,6 +14,7 @@
     <dimen name="button_video_width">35dp</dimen>
     <dimen name="button_video_height">40dp</dimen>
     <dimen name="margin_cardview">2dp</dimen>
+    <dimen name="video_frame_width">2dp</dimen>
 
 
 </resources>
