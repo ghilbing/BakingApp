@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.model.Recipe;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,16 +46,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         myViewHolder.recipeName.setText(recipe.getName());
         switch (recipe.getId()){
             case 1:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.nutella_pie));
+                Picasso.get().load(R.drawable.nutella_pie).placeholder(R.drawable.placeholder).into(myViewHolder.recipeImage);
                 break;
             case 2:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.brownies));
+                Picasso.get().load(R.drawable.brownies).placeholder(R.drawable.placeholder).into(myViewHolder.recipeImage);
                 break;
             case 3:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.yellow_cake));
+                Picasso.get().load(R.drawable.yellow_cake).placeholder(R.drawable.placeholder).into(myViewHolder.recipeImage);
                 break;
             case 4:
-                myViewHolder.recipeImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.cheese_cake));
+                Picasso.get().load(R.drawable.cheese_cake).placeholder(R.drawable.placeholder).into(myViewHolder.recipeImage);
                 break;
         }
 
