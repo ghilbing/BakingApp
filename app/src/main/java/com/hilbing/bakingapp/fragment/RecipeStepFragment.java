@@ -20,6 +20,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
+import com.github.rubensousa.previewseekbar.PreviewLoader;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
@@ -38,6 +42,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.hilbing.bakingapp.R;
+import com.hilbing.bakingapp.glide.GlideCostumeModule;
 import com.hilbing.bakingapp.model.Recipe;
 import com.hilbing.bakingapp.model.Step;
 import com.hilbing.bakingapp.widget.WidgetProvider;
@@ -47,7 +52,7 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class RecipeStepFragment extends Fragment implements Player.EventListener, View.OnClickListener {
+public class RecipeStepFragment extends Fragment implements Player.EventListener, View.OnClickListener, PreviewLoader {
 
     private static final String TAG = RecipeStepFragment.class.getSimpleName();
 
@@ -233,7 +238,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
 
             //If the position is landscape, show full screen, else show nav buttons
-            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE && widthS > 700) {
+            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE && widthS > 600) {
                 fullScreenPlayer();
                 previousBtn.setVisibility(View.GONE);
                 nextBtn.setVisibility(View.GONE);
@@ -301,7 +306,6 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     void releasePlayer(){
         if (mSimpleExoPlayer != null) {
-
             playerPosition = mSimpleExoPlayer.getCurrentPosition();
             playReady = mSimpleExoPlayer.getPlayWhenReady();
             mSimpleExoPlayer.release();
@@ -314,6 +318,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         super.onStart();
         if(Util.SDK_INT > 23){
             initExoPlayer();
+            mSimpleExoPlayer.setPlayWhenReady(true);
         }
     }
 
@@ -330,22 +335,26 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onPause() {
         super.onPause();
-        if (mSimpleExoPlayer != null){
-            playerPosition = mSimpleExoPlayer.getCurrentPosition();
-            playReady = mSimpleExoPlayer.getPlayWhenReady();
-            Log.d(TAG, String.valueOf(playReady));
-            releasePlayer();
+        if (Util.SDK_INT <= 23) {
+            if (mSimpleExoPlayer != null) {
+                playerPosition = mSimpleExoPlayer.getCurrentPosition();
+                playReady = mSimpleExoPlayer.getPlayWhenReady();
+                Log.d(TAG, String.valueOf(playReady));
+                releasePlayer();
+            }
         }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mSimpleExoPlayer != null){
-            playerPosition = mSimpleExoPlayer.getCurrentPosition();
-            playReady = mSimpleExoPlayer.getPlayWhenReady();
-            Log.d(TAG, String.valueOf(playReady));
-            releasePlayer();
+        if (Util.SDK_INT > 23) {
+            if (mSimpleExoPlayer != null) {
+                playerPosition = mSimpleExoPlayer.getCurrentPosition();
+                playReady = mSimpleExoPlayer.getPlayWhenReady();
+                Log.d(TAG, String.valueOf(playReady));
+                releasePlayer();
+            }
         }
     }
 
@@ -468,6 +477,13 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         windowManager.getDefaultDisplay().getMetrics(dm);
         int widthInDP = Math.round(dm.widthPixels/dm.density);
         return widthInDP;
+
+    }
+
+    @Override
+    public void loadPreview(long currentPosition, long max){
+        mSimpleExoPlayer.seekTo(currentPosition);
+        mSimpleExoPlayer.setPlayWhenReady(false);
 
     }
 }
