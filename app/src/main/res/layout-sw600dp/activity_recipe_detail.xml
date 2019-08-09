@@ -16,6 +16,16 @@
         android:minHeight="?attr/actionBarSize"/>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:padding="@dimen/recipe_name_padding"
+        android:textSize="25dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/ingredients_and_steps"/>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_detail"

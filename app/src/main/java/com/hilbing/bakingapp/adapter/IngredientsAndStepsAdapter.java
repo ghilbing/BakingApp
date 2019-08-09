@@ -2,6 +2,7 @@ package com.hilbing.bakingapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -40,6 +41,8 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
     private Context mContext;
     private StepClickListener mListener;
 
+    private int selected_position = 0;
+
     public interface StepClickListener{
         void onStepClick(Step step);
     }
@@ -64,7 +67,7 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
+        final RecyclerView.ViewHolder viewHolder;
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
 
         switch (viewType) {
@@ -96,6 +99,7 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
             case STEP:
                 StepViewHolder stepViewHolder = (StepViewHolder) holder;
                 setStepViewHolder(stepViewHolder, position);
+                holder.itemView.setBackgroundColor(selected_position == position ? Color.GRAY : Color.TRANSPARENT);
                 break;
             default:
                 StepViewHolder defaultViewHolder = (StepViewHolder) holder;
@@ -163,11 +167,15 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
             int pos = getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
                 Step clickedDataItem = (Step) data.get(pos);
-
                 mListener.onStepClick(clickedDataItem);
-
+              //  shortDescription.setBackgroundResource(R.color.colorAccent);
+                notifyItemChanged(selected_position);
+                selected_position = getAdapterPosition();
+                notifyItemChanged(selected_position);
             }
+
         }
+
 
     }
 
