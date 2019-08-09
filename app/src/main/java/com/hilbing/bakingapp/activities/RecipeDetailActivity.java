@@ -39,7 +39,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
     @Nullable
     @BindView(R.id.step_detail_container)
     FrameLayout detailContainer;
-    @Nullable
 
     private boolean mTwoPane;
     public Recipe recipe;
@@ -66,7 +65,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
 
         setSupportActionBar(toolbar);
 
-        recipeObjects = new ArrayList<Object>();
+        recipeObjects = new ArrayList<>();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -81,24 +80,23 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
             finish();
         }
 
-        if (getIntent.hasExtra(EXTRA)){
+        if (getIntent != null) {
 
-            recipe = getIntent().getParcelableExtra(EXTRA);
-            recipeId = recipe.getId();
-            ingredients = recipe.getIngredients();
-            steps = recipe.getSteps();
-            recipeName = recipe.getName();
-            recipeObjects.addAll(ingredients);
-            recipeObjects.addAll(steps);
-            setTitle(recipeName);
-        } else {
-            Toast.makeText(this, R.string.data_no_available, Toast.LENGTH_LONG).show();
+            if (getIntent.hasExtra(EXTRA)) {
+
+                recipe = getIntent().getParcelableExtra(EXTRA);
+                recipeId = recipe.getId();
+                ingredients = recipe.getIngredients();
+                steps = recipe.getSteps();
+                recipeName = recipe.getName();
+                recipeObjects.addAll(ingredients);
+                recipeObjects.addAll(steps);
+                setTitle(recipeName);
+            } else {
+                Toast.makeText(this, R.string.data_no_available, Toast.LENGTH_LONG).show();
+            }
         }
 
-        /*if (findViewById(R.id.step_detail_container) != null){
-            //For larger screens
-            mTwoPane = true;
-        }*/
 
         if (detailContainer != null){
             mTwoPane = true;
@@ -111,10 +109,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements Ingredien
     private void setupRecyclerView() {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewDetail.setLayoutManager(layoutManager);
-        recyclerViewDetail.setHasFixedSize(true);
-        mAdapter = new IngredientsAndStepsAdapter(getApplicationContext(), recipeObjects, mTwoPane, this);
-        recyclerViewDetail.setAdapter(mAdapter);
+        if (recyclerViewDetail != null) {
+            recyclerViewDetail.setLayoutManager(layoutManager);
+            recyclerViewDetail.setHasFixedSize(true);
+            mAdapter = new IngredientsAndStepsAdapter(getApplicationContext(), recipeObjects, mTwoPane, this);
+            recyclerViewDetail.setAdapter(mAdapter);
+        }
 
     }
 
