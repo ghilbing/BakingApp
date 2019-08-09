@@ -1,13 +1,11 @@
 package com.hilbing.bakingapp;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import com.hilbing.bakingapp.fragment.RecipeFragment;
-import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
