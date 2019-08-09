@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.model.Ingredient;
 import com.hilbing.bakingapp.model.Recipe;
-
 import java.util.ArrayList;
 import java.util.List;
 

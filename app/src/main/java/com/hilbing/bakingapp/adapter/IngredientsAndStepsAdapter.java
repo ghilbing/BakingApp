@@ -1,32 +1,18 @@
 package com.hilbing.bakingapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.hilbing.bakingapp.R;
-import com.hilbing.bakingapp.activities.RecipeStepActivity;
-import com.hilbing.bakingapp.fragment.RecipeStepFragment;
 import com.hilbing.bakingapp.model.Ingredient;
 import com.hilbing.bakingapp.model.Step;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -175,7 +161,6 @@ public class IngredientsAndStepsAdapter extends RecyclerView.Adapter<RecyclerVie
             }
 
         }
-
 
     }
 

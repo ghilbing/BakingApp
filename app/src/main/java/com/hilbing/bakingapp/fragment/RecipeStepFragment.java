@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +36,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.model.Recipe;
 import com.hilbing.bakingapp.model.Step;
@@ -224,8 +224,10 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
             stepDescription.setText(step.getDescription());
             Log.d(TAG, step.getDescription());
             screenOrientation = getResources().getConfiguration().orientation;
-            previousBtn.setOnClickListener(this);
-            nextBtn.setOnClickListener(this);
+            if (isTwoPane == false){
+                previousBtn.setOnClickListener(this);
+                nextBtn.setOnClickListener(this);
+            }
 
             int widthS = getScreenWidthInDPs(getContext());
 
@@ -235,11 +237,13 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                 fullScreenPlayer();
                 previousBtn.setVisibility(View.GONE);
                 nextBtn.setVisibility(View.GONE);
+                isTwoPane = true;
             } else if (screenOrientation == Configuration.ORIENTATION_PORTRAIT && widthS < 600) {
                 previousBtn.setVisibility(View.VISIBLE);
                 nextBtn.setVisibility(View.VISIBLE);
                 previousBtn.setOnClickListener(this);
                 nextBtn.setOnClickListener(this);
+                isTwoPane = false;
             }
         }
 
@@ -277,7 +281,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
                     mSimpleExoPlayer.seekTo(playerPosition);
 
                 }
-            } else {
+            } else if (mSimpleExoPlayer != null && videoUrl != null){
                 //hide video in landscape
                 mSimpleExoPlayer.setPlayWhenReady(false);
                 if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -308,14 +312,18 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
     @Override
     public void onStart() {
         super.onStart();
-        initExoPlayer();
+        if(Util.SDK_INT > 23){
+            initExoPlayer();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!videoUrl.isEmpty()) {
-            mSimpleExoPlayer.setPlayWhenReady(true);
+        if ((Util.SDK_INT <= 23 || mSimpleExoPlayer == null)) {
+            if (!videoUrl.isEmpty() && mSimpleExoPlayer != null) {
+                mSimpleExoPlayer.setPlayWhenReady(true);
+            }
         }
     }
 
@@ -349,7 +357,6 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
     private void fullScreenPlayer(){
         if (!videoUrl.isEmpty() && !isTwoPane){
-           // hideSystemUI();
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         }
 

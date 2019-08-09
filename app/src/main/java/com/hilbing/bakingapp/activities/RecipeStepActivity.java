@@ -2,7 +2,6 @@ package com.hilbing.bakingapp.activities;
 
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
 import com.hilbing.bakingapp.R;
 import com.hilbing.bakingapp.fragment.RecipeStepFragment;
 import com.hilbing.bakingapp.model.Step;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

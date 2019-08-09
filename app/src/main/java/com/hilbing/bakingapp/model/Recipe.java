@@ -1,11 +1,9 @@
 package com.hilbing.bakingapp.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Base64;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
