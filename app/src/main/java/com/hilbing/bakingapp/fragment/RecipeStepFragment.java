@@ -238,7 +238,7 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
 
 
             //If the position is landscape, show full screen, else show nav buttons
-            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE && widthS > 600) {
+            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE && widthS >= 600) {
                 fullScreenPlayer();
                 previousBtn.setVisibility(View.GONE);
                 nextBtn.setVisibility(View.GONE);
@@ -318,7 +318,9 @@ public class RecipeStepFragment extends Fragment implements Player.EventListener
         super.onStart();
         if(Util.SDK_INT > 23){
             initExoPlayer();
-            mSimpleExoPlayer.setPlayWhenReady(true);
+            if (!videoUrl.isEmpty() && mSimpleExoPlayer != null) {
+                mSimpleExoPlayer.setPlayWhenReady(true);
+            }
         }
     }
 
